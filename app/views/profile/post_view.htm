@@ -1,0 +1,82 @@
+<div class="row">
+<div class="col-md-8">
+
+<div id="post-list">
+<div class="post post-{{ @post.id }}">
+<div class="post-header">
+<div class="profile-cover">
+<img src="http://localhost/twitter/public/uploads/1/profile_pic/avatar.jpg">
+</div>
+<div class="profile-info">
+<span class="profile-title">
+<a href="{{ @home_url }}/{{ @users['user_name']}}">{{ @post.user.display_name }}</a> 
+@{{  @post.user.user_name  }}
+</span>
+<check if="{{ @profile_users['verified'] }}"><i class="verified" data-toggle="tooltip" title="Verified"></i></check>
+</div>
+<div class="profile-time">
+<a href="{{ @home_url }}/{{ @post.user.user_name }}/posts/{{ @post.id }}"><span class="glyphicon glyphicon-time"></span> 
+<time datetime="{{ @post.created_at }}" data-toggle="tooltip" data-placement="right" title="{{ @post.created_at }}"> {{ @post.created_at }}</time>
+</a>
+</div>
+
+<check if="{{ @logged_in}}">
+<div class="post-options dropdown">
+<span class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+<i class="icon-chevron-thin-down"></i>
+</span>
+<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+<check if="{{ @profile_users['id'] === @users['user_id']}}">
+<true>
+<li><a href="#"><i class="glyphicon glyphicon-pencil"></i> Edit</a></li>
+<li><a href="#"><i class="icon-pushpin"></i> Pin it</a></li>
+<li role="separator" class="divider"></li>
+<li><a href="#"><i class="icon-trash"></i> Delete</a></li>
+<li role="separator" class="divider"></li>
+<li><a href="#"><i class="glyphicon glyphicon-warning-sign"></i> Report</a></li>
+</true>
+<false>
+<li><a href="#"><i class="glyphicon glyphicon-warning-sign"></i> Report</a></li>
+</false>
+</check>
+</ul>
+</div>
+</check>
+
+</div>
+<div class="post-body"> {{ @post.content |replace_data }} </div>
+
+<div class="post-footer">
+<span class="share-btn">
+<check if="{{ @post.likes.user_id == @user.user_id }}">
+<true>
+<a href="javascript:void(0);" id="unlike" rel="{{ @post.id }}" post_type="post"><span class="glyphicon glyphicon-hand-right"></span> Unlike {{ @post.likes->count() }}</a>
+</true>
+<false>
+<a href="javascript:void(0);" id="like" rel="{{ @post.id }}" post_type="post"><span class="glyphicon glyphicon-hand-right"></span> Like {{ @value.likes->count() }}</a>
+</false>
+</check>
+<a href="javascript:void(0);" id="comment" rel="{{ @post.id }}"><span class="icon-comment"></span> Comments</a>
+<a href="javascript:void(0);" id="share" rel="{{ @post.id }}"><span class="icon-share"></span> Share</a>
+</span>
+</div>
+
+<div class="comment">
+<form>
+<textarea name="msg" placeholder="Your Comment" class="form-control" data-type="{{ @post.post_type }}" data-poster="{{ @post.user_id }}" data-post="{{ @post.id }}"></textarea>
+</form>
+</div>
+
+</div>
+
+
+
+</div>
+
+</div>
+
+
+<div class="col-md-4">
+<include if="{{ @logged_in}}" href="profile/profile-card.htm" />
+</div>
+</div>

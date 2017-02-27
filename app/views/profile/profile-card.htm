@@ -1,0 +1,27 @@
+<section class="profile">
+<div class="profile-image"></div>
+<div id="profile_mini_img">
+<img src="{{ @users.avatar }}" class="avatar_min_img" height="50">
+<a href="{{ @home_url }}/{{ @users.user_name }}" title="admin"><span class="btn" id="profile_mini_name">
+<span class="glyphicon glyphicon-user"></span> admin</span></a>
+</div>
+<div class="follow-stats">
+<a href="{{ @home_url }}/{{ @users.user_name }}"><p>Posts <br> <span class="stats">{{ @users.post->count() }}</span></p></a>
+<a href="{{ @home_url }}/{{ @users.user_name }}/photos"><p>Photos <br> <span class="stats">{{ @users.photos->count() }}</span></p></a> 
+<a href="{{ @home_url }}/{{ @users.user_name }}/friends"><p>Friends<br><span class="stats">{{ @users.friends->count() }}</span></p></a>
+</div>
+</section>
+
+<div class="profile-menu">
+<h1>Account Menu</h1>
+<div class="list-group">
+<a class="list-group-item <check if="{{ @active_menu === '/'.@users.user_name.'/friends' }}">active</check>" href="{{ @home_url }}/{{ @users.user_name }}/friends"><i class="icon-users"></i> Friends</a>
+<a class="list-group-item <check if="{{ @active_menu === '/'.@users.user_name.'/photos' }}">active</check>" href="{{ @home_url }}/{{ @users.user_name }}/photos"><i class="glyphicon glyphicon-camera"></i> Photos</a>
+<a class="list-group-item <check if="{{ @active_menu === '/'.@users.user_name.'/messages' }}">active</check>" href="{{ @home_url }}/{{ @users.user_name }}/messages"><i class="glyphicon glyphicon-envelope"></i> Messages</a>
+<a class="list-group-item <check if="{{ @active_menu === '/'.@users.user_name.'/edit' }}">active</check>" href="{{ @home_url }}/{{ @users.user_name }}/edit"><i class="glyphicon glyphicon-pencil"></i> Edit Profile</a>
+<a class="list-group-item <check if="{{ @active_menu === '/'.@users.user_name.'/change_password' }}">active</check>" href="{{ @home_url }}/{{ @users.user_name }}/change_password"><i class="glyphicon glyphicon-lock"></i> Change Password</a>
+<a class="list-group-item <check if="{{ @active_menu === '/'.@users.user_name.'/desgin' }}">active</check>" href="{{ @home_url }}/{{ @users.user_name }}/desgin"><i class="glyphicon glyphicon-dashboard"></i> Change Design</a>
+<a class="list-group-item <check if="{{ @active_menu === '/settings' }}">active</check>" href="{{ @home_url }}/settings"><i class="icon-cog"></i> Settings</a>
+<a class="list-group-item" href="{{ @home_url }}/logout"><i class="icon-logout"></i> Logout</a>
+</div>
+</div>

@@ -1,0 +1,31 @@
+<div id="profile-1">
+<div id="cover" class="img-responsive"></div>
+<div id="profile">
+<div id="profile_img">
+<check if="{{ @profile_users.avatar}}">
+<true><img src="{{ @profile_users.avatar}}" class="avatar_img img-thumbnail img-responsive"></true>
+<false><img src="{{ @home_url}}/img/no-avatar.png" class="avatar_img img-thumbnail img-responsive"></false>
+</check>
+
+<span class="profile_name">{{ @profile_users.display_name }} <check if="{{ @profile_users.verified }}"><i class="verified" data-placement="right" data-toggle="tooltip" title="Verified"></i></check></span>
+</div>
+
+</div>
+<div id="profile-menu">
+<div class="masthead clearfix">
+<div class="inner">
+<ul class="nav masthead-nav">
+<li<check if="{{ @active_menu === '/'.@profile_users.user_name }}"> class="active"</check>><a href="{{ @home_url }}/{{ @profile_users.user_name}}">Profile</a></li>
+<li<check if="{{ @active_menu === '/'.@profile_users.user_name.'/photos' }}"> class="active"</check>><a href="{{ @home_url }}/{{ @profile_users.user_name}}/photos"> Photos</a></li>
+<li<check if="{{ @active_menu === '/'.@profile_users.user_name.'/videos' }}"> class="active"</check>><a href="{{ @home_url }}/{{ @profile_users.user_name}}/videos"> Videos</a></li>
+<li<check if="{{ @active_menu === '/'.@profile_users.user_name.'/friends' }}"> class="active"</check>><a href="{{ @home_url }}/{{ @profile_users.user_name}}/friends"> Friends</a></li>
+<check if="{{ @logged_in && @profile_users.id  === @users.id }}">
+<li<check if="{{ @active_menu === '/'.@profile_users.user_name.'/edit' }}"> class="active"</check>><a href="{{ @home_url }}/{{ @profile_users.user_name }}/edit"> Edit Profile</a></li>
+<span class="btn" id="upload_avatar"><span class="glyphicon glyphicon-camera"></span> Upload Avatar</span>
+</check>
+</ul>
+</div>
+</div>
+</div>
+
+</div>

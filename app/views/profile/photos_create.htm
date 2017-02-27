@@ -1,0 +1,42 @@
+<include href="profile/header.htm" />
+
+<div class="add-photos-box">
+<h1>Add Photos to Album</h1>
+
+<form action="{{ @home_url }}/{{ @profile_users.user_name }}/album/{{ @page.album }}" method="post" enctype="multipart/form-data" role="form" class="dropzone" id="add-photos-box">
+
+<check if="{{ @page.msg }}">
+<check if="{{ @page.msg.success }}">
+<true><div class="alert alert-success"><i class="icon-ok"></i> {{ @page.msg.msg }}</div></true>
+<false><div class="alert alert-success"><i class="icon-cross"></i> {{ @page.msg.msg }}</div></false>
+</check>
+</check>
+
+<div class="u-form-group">
+<label for="title">Select Album</label>
+<select name="album_id">
+<option value="0" selected="selected">Untitled</option>
+<repeat group="{{ @album_list }}" value="{{ @album }}" counter="{{ @counter }}">
+<option value="{{ @album.id }}">{{ @album.title }}</option>
+</repeat>
+</select>
+</div>
+
+<div class="u-form-group">
+<label for="summary">Files</label>
+<div id="file-uploader">
+<div class="addfile">
+<span class="add-file" data-dz-message data-toggle="tooltip" title="Add Photo"><i class="glyphicon glyphicon-plus"></i>
+</span>
+</div>
+</div>
+</div>
+
+<div class="u-form-group">
+<button type="submit" id="process"><span class="glyphicon glyphicon-send"></span> Upload</button>
+</div>
+<div class="u-form-group half">
+
+</div>
+</form>
+</div>

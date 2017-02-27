@@ -1,0 +1,19 @@
+<include href="profile/header.htm" />
+<div class="row">
+
+<div class="col-md-8">
+<check if="{{ @friend_list }}">
+<true>
+<repeat group="{{ @friend_list }}" value="{{ @friend }}" counter="{{ @counter }}">
+{{ @friend }}
+</repeat>
+</true>
+<false>
+<div class="alert alert-danger"><i class="icon-cross"></i> {{@profile_users.display_name}} don't have Any Friends :( </div>	
+</false>	
+</check>
+</div>
+<div class="col-md-4">
+<include if="{{ @logged_in}}" href="profile/profile-card.htm" />
+</div>
+</div>

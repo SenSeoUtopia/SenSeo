@@ -1,0 +1,24 @@
+<style>
+.panel-body .btn:not(.btn-block) { width:120px;margin-bottom:10px; }
+</style>
+<div class="panel panel-success">
+<div class="panel-heading">
+<h3 class="panel-title">
+<span class="glyphicon glyphicon-bookmark"></span> Quick Shortcuts</h3>
+</div>
+<div class="panel-body">
+<div class="row">
+<div class="col-xs-6 col-md-6">
+<a href="{{ @home_url }}/admincp/settings" class="btn btn-danger btn-lg" role="button"><span class="glyphicon glyphicon-cog"></span> <br/>Settings</a>
+<a href="{{ @home_url }}/admincp/reports" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-flag"></span> <br/>Reports</a>
+<a href="{{ @home_url }}/admincp/stats" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-signal"></span> <br/>Stats</a>
+</div>
+<div class="col-xs-6 col-md-6">
+<a href="{{ @home_url }}/admincp/user/list" class="btn btn-success btn-lg" role="button"><span class="glyphicon glyphicon-user"></span> <br/>Users</a>
+<a href="{{ @home_url }}/admincp/episodes/list" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-facetime-video"></span> <br/>Episodes</a>
+<a href="{{ @home_url }}/admincp/category/list" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-folder-open"></span> <br/>Category</a>
+</div>
+</div>
+<a href="{{ @home_url }}" class="btn btn-success btn-lg btn-block" role="button"><span class="glyphicon glyphicon-globe"></span> Visit HomePage</a>
+</div>
+</div>

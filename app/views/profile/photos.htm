@@ -1,0 +1,58 @@
+<include href="profile/header.htm" />
+
+<div class="album-create">
+<h1>Create Album</h1>
+
+<form action="{{ @home_url }}/{{ @profile_users.user_name }}/photos" method="post" enctype="multipart/form-data" role="form">
+
+<check if="{{ @page.msg }}">
+<check if="{{ @page.msg.success }}">
+<true><div class="alert alert-success"><i class="icon-ok"></i> {{ @page.msg.msg }}</div></true>
+<false><div class="alert alert-success"><i class="icon-cross"></i> {{ @page.msg.msg }}</div></false>
+</check>
+</check>
+
+<div class="u-form-group">
+<label for="title">Album Title</label>
+<input type="text" name="title" id="title" required>
+</div>
+
+<div class="u-form-group">
+<label for="summary">Description</label>
+<textarea class="form-control" name="summary" id="summary" rows="3" placeholder="Write About your Album" required></textarea>
+</div>
+
+<div class="u-form-group half">
+<button type="submit"><span class="glyphicon glyphicon-send"></span> Create Album</button>
+</div>
+<div class="u-form-group half">
+
+</div>
+</form>
+</div>
+
+<div class="album-list row">
+<h1>Albums</h1>
+
+<check if="{{ @album_list }}">
+
+<repeat group="{{ @album_list }}" value="{{ @album }}" counter="{{ @counter }}">
+<div class="col-sm-8 col-md-8">
+<div class="thumbnail">
+
+<img src="{{ @album.photos->first()->file_path }}">
+
+<div class="caption">
+<h1>{{ @album.title }} {{ @album.photos->count() }}<span class="pull-right"><a href="{{ @home_url }}/{{ @profile_users.user_name }}/album/{{ @album.id }}">Add Photos</a></span></h1>
+<p>{{ @album.summary }}</p>
+<p>{{ @album.created_at }}</p>
+</div>
+</div>
+</div>
+
+</repeat>
+
+
+</check>
+
+</div>

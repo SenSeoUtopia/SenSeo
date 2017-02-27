@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>{{ @page['title']}} - {{ @site_title }}</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="stylesheet" type="text/css" href="http://localhost/twitter/public/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="{{@home_url}}/css/style.css">
+<link rel="stylesheet" type="text/css" href="{{@home_url}}/css/pace.css">
+<script type="text/javascript" src="{{@home_url}}/js/jquery.min.js"></script>
+<script type="text/javascript" src="{{@home_url}}/js/pace.min.js"></script>
+<script type="text/javascript">
+var base_url = "{{ @home_url}}";
+var img_url = "{{ @home_url}}/img/";
+</script>
+</head>
+<body>
+<div class="container">
+
+<include if="{{ isset(@page['content']) }}" href="{{ @page['content'] }}" />
+
+</div><!-- container -->
+
+</body>
+</html>

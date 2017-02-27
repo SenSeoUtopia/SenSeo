@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>{{ @site_title}} - {{ @page['title']}}</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="stylesheet" type="text/css" href="{{@home_url}}/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="{{@home_url}}/css/admin.css">
+<link rel="stylesheet" type="text/css" href="{{@home_url}}/css/pace-flash.css">
+<script type="text/javascript" src="{{@home_url}}/js/jquery.min.js"></script>
+<script type="text/javascript" src="{{@home_url}}/js/pace.min.js"></script>
+<script type="text/javascript" src="{{@home_url}}/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+var base_url = "{{@home_url}}/";
+var img_url = "{{@home_url.'/img'}}/";
+</script>
+<check if="{{ @editor }}">
+<script type="text/javascript" src="{{@home_url}}/js/editor.js"></script>
+<script type="text/javascript">
+bkLib.onDomLoaded(function() {
+new nicEditor({fullPanel : true,iconsPath : img_url+'/nicEditorIcons.gif'}).panelInstance('summary');
+});
+</script>
+</check>
+</head>
+<body>
+
+
+<nav class="navbar navbar-inverse navbar-static-top"> 
+<div class="container-fluid">
+<div class="navbar-header"> 
+<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#header-menu" aria-expanded="false"> 
+<span class="sr-only">Toggle navigation</span> 
+<span class="icon-bar"></span> 
+<span class="icon-bar"></span> 
+<span class="icon-bar"></span> 
+</button> 
+<a class="navbar-brand" href="{{@home_url.'/'}}"><img src="{{@home_url}}/img/logo.png"></a> 
+</div>
+<div class="collapse navbar-collapse" id="header-menu"> 
+<ul class="nav navbar-nav"> 
+<li><a href="{{ @home_url }}"><i class="glyphicon glyphicon-home"></i> Back to site</a></li>
+</ul> 
+<ul class="nav navbar-nav navbar-right"> 
+<check if="{{ @logged_in}}">
+<true>
+<li class="dropdown"><a href="{{ @home_url }}" class="dropdown-toggle" data-toggle="dropdown">
+<span class="glyphicon glyphicon-user"></span> {{ @users['user_name']}} <b class="caret"></b></a>
+<ul class="dropdown-menu" aria-labelledby="dLabel" id="edit-menu">
+<li class="dropdown-header">User profile</li>
+<li><a href="{{ @home_url }}/profile/{{ @users['user_name']}}">Go to Profile</a></li>
+<li role="separator" class="divider"></li>
+<li class="dropdown-header">Settings</li>
+<li><a href="{{ @home_url }}/profile/{{ @users['user_name']}}/edit">Edit Profile</a></li>
+<li><a href="{{ @home_url }}/profile/{{ @users['user_name']}}/change_password">Change Password</a></li>
+</ul>
+</li>
+<li><a href="{{ @home_url.'/logout' }}"><i class="glyphicon glyphicon-off"></i> {{ @lang_logout}}</a></li>
+</true>
+<false>
+<li><a href="{{ @home_url.'/login' }}"><i class="icon-login"></i> {{ @lang_login}}</a></li>
+<li><a href="{{ @home_url.'/register' }}">{{ @lang_register}}</a></li>
+</false>
+</check>
+</ul> 
+</div><!-- /.navbar-collapse -->
+ </div><!-- /.container-fluid -->
+ </nav>
+
+
+
+
+
+
+
+<div class="container-fluid">
+
+<div class="row">
+<div class="col-sm-3 scrollspy">
+<nav class="sidebar-menu" data-spy="affix" data-offset-top="60" data-offset-bottom="20">
+<ul class="nav nav-pills nav-stacked">
+<li <check if="{{ @active_menu ==='/admincp' }}">class="active" </check>><a href="{{ @home_url.'/admincp' }}"><i class="glyphicon glyphicon-home"></i> Dashboard</a></li>
+<!-- Series -->
+<li class="dropdown <check if="{{ @active_menu ==='/admincp/series/list' }}">active </check>">
+<a id="series" href="javascript::void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="glyphicon glyphicon-th"></i> Series
+<span class="caret"></span> </a> 
+<ul id="menu1" class="dropdown-menu" aria-labelledby="series">
+<li <check if="{{ @active_menu ==='/admincp/series/list' }}">class="active" </check>><a href="{{ @home_url.'/admincp/series/list' }}"><i class="glyphicon glyphicon-th-list"></i> Series List</a></li>
+<li <check if="{{ @active_menu ==='/admincp/series/new_added' }}">class="active" </check>><a href="{{ @home_url.'/admincp/series/new_added' }}"><i class="glyphicon glyphicon-th"></i> New Series List</a></li>
+<li <check if="{{ @active_menu ==='/admincp/series/create' }}">class="active" </check>><a href="{{ @home_url.'/admincp/series/create' }}"><i class="glyphicon glyphicon-file"></i> Create New Series</a></li>
+</ul> 
+</li>
+<!-- Episodes -->
+<li class="dropdown <check if="{{ @active_menu ==='/admincp/episodes/list' }}">active </check>">
+<a id="episodes" href="javascript::void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="glyphicon glyphicon-facetime-video"></i> Episodes 
+<span class="caret"></span> </a> 
+<ul id="menu1" class="dropdown-menu" aria-labelledby="episodes"> 
+<li <check if="{{ @active_menu ==='/admincp/episodes/list' }}">class="active" </check>><a href="{{ @home_url.'/admincp/episodes/list' }}"><i class="glyphicon glyphicon-facetime-video"></i> Episodes List</a></li>
+<li <check if="{{ @active_menu ==='/admincp/episodes/create' }}">class="active" </check>><a href="{{ @home_url.'/admincp/episodes/create' }}"><i class="glyphicon glyphicon-file"></i> Episodes Create</a></li>
+</ul> 
+</li>
+<!-- Category -->
+<li class="dropdown <check if="{{ @active_menu ==='/admincp/category/list' }}">active </check>">
+<a id="category" href="javascript::void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="glyphicon glyphicon-folder-open"></i> Category 
+<span class="caret"></span> </a> 
+<ul id="menu1" class="dropdown-menu" aria-labelledby="category"> 
+<li <check if="{{ @active_menu ==='/admincp/category/list' }}">class="active" </check>><a href="{{ @home_url.'/admincp/category/list' }}"><i class="glyphicon glyphicon-th-list"></i> Category List</a></li>
+<li <check if="{{ @active_menu ==='/admincp/category/create' }}">class="active" </check>><a href="{{ @home_url.'/admincp/category/create' }}"><i class="glyphicon glyphicon-file"></i> Category Create</a></li>
+</ul> 
+</li>
+
+<li <check if="{{ @active_menu ==='/admincp/reports' }}">class="active" </check>><a href="{{ @home_url.'/admincp/reports' }}"><i class="glyphicon glyphicon-flag"></i> Reports</a></li>
+<li <check if="{{ @active_menu ==='/admincp/stats' }}">class="active" </check>><a href="{{ @home_url.'/admincp/stats' }}"><i class="glyphicon glyphicon-signal"></i> Stats</a></li>
+</ul>
+
+<check if="{{ isset(@series['img']) }}">
+<div class="thumbnail">
+<h1>Series Cover</h1>
+<img class="img-thumbnail" src="{{ @home_url.'/covers/'.basename(@series['img']) }} " onError="this.src='{{ @home_url.'/img/thumb-no-img.png' }}';" alt="{{ @series['title'] }}" aligh="center" itemprop="image">
+</div>
+</check>
+</nav><!-- Sidebar Menu -->
+
+</div>
+<div class="col-sm-9">
+<include if="{{ !empty(@page['content']) }}" href="{{ @page['content'] }}" />
+</div>
+
+</div>
+
+</div><!-- container -->
+
+
+
+<footer class="footer" role="contentinfo"> 
+<div class="container"> 
+
+<p>&copy; {{ date('Y') }} {{ @site_title}}</p> 
+</div><!-- container -->
+</footer>
+</body>
+</html>

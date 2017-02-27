@@ -1,0 +1,110 @@
+<div class="row">
+
+<div class="col-md-8">
+
+<check if="{{ @logged_in}}">
+
+<div id="post-create">
+
+<!-- Nav tabs -->
+<ul class="nav nav-tabs actions" role="tablist">
+<li class="active"><a href="#status_post" aria-controls="status_post" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-file"></i> Update Status</a></li>
+<li><a href="#photo" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-picture"></i> Photo</a></li>
+<li><a href="#video" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-film"></i> Video</a></li>
+<li><a href="#question" aria-controls="settings" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-question-sign"></i> Question</a></li>
+<span class="pull-right post-indicator"><img src="{{ @home_url }}/img/loader.gif"></span>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+
+<div class="tab-pane fade-in active" id="status_post">
+
+<!--
+<form action="{{ @home_url }}/ajax/posting" method="post" enctype="multipart/form-data" role="form" id="compose">
+
+<div id="message"></div>
+
+<textarea type="text" id="twitter-post" name="message" placeholder="What's in your mind" class="text" required></textarea>
+<div class="post-create-footer">
+<span class="pull-left" id="char-left">(144 characters remaining)</span>
+<span class="pull-left post-indicator"><img src="http://localhost/SenSeo/public/img/loader.gif"></span>
+<button class="post-btn" type="submit"><span class="glyphicon glyphicon-send"></span> Post</button> <div style="clear: both"></div> 
+</div> 
+</form>
+-->
+</div>
+<div class="tab-pane fade" id="photo">
+
+<form action="{{ @home_url }}/ajax/posting/photo" method="post" enctype="multipart/form-data" role="form" id="compose" class="dropzone">
+
+<div id="message"></div>
+
+<textarea type="text" id="twitter-post" name="message" placeholder="What's in your mind" class="text" required></textarea>
+<div id="file-uploader">
+<div class="addfile">
+<span class="add-file" data-dz-message data-toggle="tooltip" title="Add Photo"><i class="glyphicon glyphicon-plus"></i>
+<div class="fallback">
+<input name="photo" id="chose-photo" multiple="" type="file">
+</div>
+</span>
+</div>
+</div>
+<div class="post-create-footer">
+<span class="pull-left" id="char-left">(144 characters remaining)</span>
+<span class="pull-left post-indicator"><img src="http://localhost/SenSeo/public/img/loader.gif"></span>
+<button class="post-btn" type="submit"><span class="glyphicon glyphicon-send"></span> Post</button> <div style="clear: both"></div> 
+</div> 
+</form>
+
+</div>
+<div class="tab-pane fade" id="video">
+
+<div id="message"></div>
+<input type="text" name="video" class="form-control">
+<div class="post-create-footer">
+<span class="pull-left post-indicator"><img src="http://localhost/SenSeo/public/img/loader.gif"></span>
+<button class="post-btn" type="submit"><span class="glyphicon glyphicon-send"></span> Post</button> <div style="clear: both"></div> 
+</div>
+
+</div>
+<div class="tab-pane fade" id="question">
+<div class="ask-question">
+<h1>Ask Question <span class="pull-right add-answer">Add New Answer</span></h1>
+<form action="{{ @home_url }}/ajax/posting/question" method="post" enctype="multipart/form-data" role="form">
+<div class="u-form-group">
+<label for="title">Question</label>
+<input type="text" name="title" id="title" placeholder="What is your Question?" required>
+</div>
+
+<div class="u-form-group answers">
+<label for="answers">Answers</label>
+<input type="text" name="answers[]" id="answers" placeholder="Answers?" required>
+</div>
+
+<div class="u-form-group answers">
+<input type="text" name="answers[]" id="answers" placeholder="Answers?" required>
+</div>
+
+<div class="u-form-group">
+<button type="submit" id="process"><span class="glyphicon glyphicon-send"></span> Ask Question</button>
+</div>
+</form>
+</div><!-- Ask Question -->
+
+</div><!-- tab pane -->
+</div><!-- tab Content -->
+</div><!-- Post Create -->
+</check>
+
+<div id="post-list">
+
+
+</div>
+
+
+</div>
+<div class="col-md-4">
+<include if="{{ @logged_in}}" href="profile/profile-card.htm" />
+</div>
+</div>

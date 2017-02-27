@@ -1,0 +1,51 @@
+<div class="login-box">
+ <div class="logo">
+<img src="{{ @BASE.'/' }}img/logo.png">
+</div>
+<div class="lb-header">
+<a href="{{@BASE.'/login'}}" class="active" id="login-box-link">Login</a>
+<a href="{{@BASE.'/register'}}" id="signup-box-link">Sign Up</a>
+<a href="{{@BASE.'/forgot'}}" class="forgot-password">Forgot password?</a>
+</div>
+<div class="social-login">
+<a href="#">
+<i class="icon-facebook"></i>
+log in with Facebook
+</a>
+<a href="#">
+<i class="icon-google-plus"></i>
+log in with Google
+</a>
+</div>
+
+<form class="email-login" action="{{@home_url}}/login" method="post" enctype="multipart/form-data">
+
+<check if="{{ isset(@page['errors_login']) }}">
+<div class="u-form-group">
+<div id="error-msg">
+<i class="icon-cross"></i> {{@page['errors_login']}}
+</div>
+</div>
+</check>
+<include if="{{ isset(@page['errors']) }}" href="captcha-error.htm" />
+
+<div class="u-form-group">
+<input type="text" placeholder="Email" name="email"/>
+</div>
+<div class="u-form-group">
+<input type="password" placeholder="Password" name="password"/>
+</div>
+<div class="u-form-group">
+<label for="ctrl_remember" class="rememberPassword"><input name="remember" value="1" id="ctrl_remember" tabindex="103" type="checkbox"> Stay logged in</label>
+</div>
+<div class="u-form-group">
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+<div class="g-recaptcha" data-sitekey="{{@page['site_key']}}"></div>
+</div>
+<div class="u-form-group">
+<button type="submit">Log in</button>
+</div>
+
+</form>
+</div>

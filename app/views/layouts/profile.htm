@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>{{ @page['title']}} - {{ @site_title }}</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="stylesheet" type="text/css" href="{{@home_url}}/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="{{@home_url}}/css/style.css">
+<link rel="stylesheet" type="text/css" href="{{@home_url}}/css/pace.css">
+<link type="text/css" rel="stylesheet" href="{{@home_url}}/css/jquery.typeahead.min.css">
+<link rel="stylesheet" type="text/css" href="{{@home_url}}/css/dropzone.css">
+<link rel="stylesheet" type="text/css" href="{{@home_url}}/css/twemoji-awesome.css">
+<script type="text/javascript" src="{{@home_url}}/js/jquery.min.js"></script>
+<script type="text/javascript" src="{{@home_url}}/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="{{@home_url}}/js/jquery.typeahead.min.js"></script>
+<script type="text/javascript" src="{{@home_url}}/js/jquery.form.min.js"></script>
+<script type="text/javascript" src="{{@home_url}}/js/ajax.js"></script>
+<script type="text/javascript" src="{{@home_url}}/js/pace.min.js"></script>
+<script type="text/javascript" src="{{@home_url}}/js/dropzone.js"></script>
+<script type="text/javascript" src="{{@home_url}}/js/bootstrap-suggest.js"></script>
+<script type="text/javascript" src="{{@home_url}}/js/jquery.timeago.js"></script>
+<script type="text/javascript" src="{{@home_url}}/js/autocomplete.js"></script>
+<script type="text/javascript" src="{{@home_url}}/js/admin/validator.min.js"></script>
+<check if="{{ @user_profile_page && @profile_users.id  === @users.id }}">
+<link media="all" type="text/css" rel="stylesheet" href="{{@home_url}}/css/croppic.css">
+<script src="{{@home_url}}/js/croppic.js"></script>
+</check>
+<check if="{{ @profile_users.cover}}">
+<true>
+<style type="text/css">
+#cover{ background: url("{{ @profile_users.cover }}")}
+<check if="{{ @user_profile_page && @profile_users.id  === @users.id }}">
+.profile-image{ background: url("{{ str_replace("cover.","small_cover.",@users.cover); }}")}
+</check>
+</style>
+</true>
+<false>
+<style type="text/css">
+.profile-image{ background: url("{{ str_replace("cover.","small_cover.",@users.cover); }}")}
+</style>
+</false>
+</check>
+<script type="text/javascript">
+var base_url = "{{ @home_url}}";
+var img_url = "{{ @home_url}}/img/";
+<check if="{{ @logged_in }}">
+<true>var loggeed_in = true;
+var user_id = {{ @users.id }};</true>
+<false>var loggeed_in = false;
+var user_id = 0;</false>
+</check>
+</script>
+</head>
+<body>
+<div class="container">
+
+<header id="header">
+<div class="logo">
+<a href="{{ @home_url}}"> <img src="{{ @home_url}}/img/logo.png"> </a>
+</div>
+<check if="{{ @logged_in}}">
+<form class="ajax-search" role="search" action="{{ @home_url }}/search">
+<div class="form-group">
+<div class="typeahead__container">
+<div class="search">
+<input class="form-control" placeholder="Search peoples, places and more" name="s" id="search" autocomplete="off" required="required" type="search">
+<span class="icon-search"></span>
+</div><!-- typeahead__query --> 
+</div><!-- typeahead__container --> 		  
+</div>
+</form>
+</check>
+<div class="user-menu">
+<check if="{{ @logged_in}}">
+<true>
+<a class="home" href="{{ @home_url }}" data-toggle="tooltip" data-placement="bottom" title="Home"><i class="icon-home"></i></a>
+
+<a class="friend_request" href="{{ @home_url }}/{{ @users.user_name}}/friend_request" title="Friend Requests"><i class="icon-users"></i>
+<span class="badge badge-notify">{{ @users.friend_request->count() }}</span>
+</a>
+<div id="friend_request_container" tabindex="-1">
+<div id="friend_request_title">Friend Requests</div>
+<div id="friend_request_body" class="riend_request">
+<check if="{{ @users.friend_request }}">	
+<repeat group="{{ @users.friend_request }}" value="{{ @friend_request }}" counter="{{ @counter }}">
+<div class="media">
+<div class="media-left">
+<img src="{{ @friend_request.user.avatar }}" class="cover img-circle media-object">
+</div>
+<div class="media-body">
+{{ @friend_request.user.user_name }}
+<p class="media-footer">
+<i class="icon-clock"></i> {{ nicetime(@friend_request.created_at) }}
+</p>
+</div>
+<div class="media-right"><a href="javascript:void(0)" class="btn btn-sm btn-success"><i class="icon-ok"></i> Confirm</a></div>
+<div class="media-right"><a href="javascript:void(0)" class="btn btn-sm btn-danger"><i class="icon-cross"></i> Delete</a></div>
+</div>
+</repeat>
+</check>
+</div>
+<div id="friend_request_footer"><a href="{{ @home_url }}/{{ @users.user_name}}/friend_request">See All</a></div>
+</div>
+
+<a class="msg" href="{{ @home_url }}/{{ @users.user_name}}/messages" title="Messages"><i class="glyphicon glyphicon-envelope"></i>
+<span class="badge badge-notify">{{ @users.messages->count() }}</span>
+</a>
+<div id="messages_container" tabindex="-1">
+<div id="messages_title">Messages</div>
+<div id="messages_body" class="messages">
+<check if="{{ @users.messages }}">
+<repeat group="{{ @users.messages }}" value="{{ @messages }}" counter="{{ @counter }}">
+<div class="media">
+<div class="media-left">
+<img src="{{ @messages.user.avatar }}" class="cover img-circle">
+</div>
+<div class="media-body">
+{{ @messages.content }}
+<p class="media-footer">
+<i class="icon-clock"></i> {{ nicetime(@messages.created_at) }}
+</p>
+</div>
+</div>
+</repeat>
+</check>
+</div>
+<div id="messages_footer"><a href="{{ @home_url }}/{{ @users.user_name}}/messages">See All</a></div>
+</div>
+
+<a class="notification" href="{{ @home_url }}/{{ @users.user_name}}/notification" title="Notification"><i class="icon-bell"></i>
+<span class="badge badge-notify">{{ @users.notifications->count() }}</span>
+</a>
+<div id="notification_container" tabindex="-1">
+<div id="notification_title">Notifications   <a href="javascript:void(0)" class="mark-read pull-right">Mark All as Read</a> </div>
+<div id="notifications_body" class="notifications">
+<check if="{{ @users.notifications }}">	
+<repeat group="{{ @users.notifications }}" value="{{ @notification }}" counter="{{ @counter }}">
+<div class="media">
+<div class="media-left">
+<img src="{{ @notification.user.avatar }}" class="cover img-circle">
+</div>
+<div class="media-body">
+{{ @notification.content }}
+<p class="media-footer">
+<i class="icon-clock"></i> {{ nicetime(@notification.created_at) }}
+</p>
+</div>
+</div>
+</repeat>
+</check>
+</div>
+<div id="notification_footer"><a href="{{ @home_url }}/{{ @users.user_name}}/notification">See All</a></div>
+</div>
+
+<div class="dropdown pull-right">
+<a href="{{ @home_url }}/{{ @users.user_name}}" class="dropdown-toggle" id="dLabel" data-target="edit-menu" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+<img src="{{ @users.avatar }}" class="cover img-circle">
+<span class="caret"></span>
+</a>
+<ul class="dropdown-menu" aria-labelledby="dLabel" id="edit-menu">
+<li class="dropdown-header">User profile</li>
+<li><a href="{{ @home_url }}/{{ @users.user_name}}">Go to Profile</a></li>
+<li role="separator" class="divider"></li>
+<li class="dropdown-header">Settings</li>
+<li><a href="{{ @home_url }}/{{ @users.user_name}}/edit">Edit Profile</a></li>
+<li><a href="{{ @home_url }}/{{ @users.user_name}}/change_password">Change Password</a></li>
+<li class="divider"></li>
+<li><a href="{{ @home_url.'/logout' }}"><i class="icon-logout"></i> Logout</a></li>
+</ul>
+</div>
+</true>
+<false>
+<a href="{{ @home_url.'/login' }}"><i class="icon-login"></i> Login</a>
+<a href="{{ @home_url.'/register' }}">Register</a>
+</false>
+</check>
+</div>
+</header>
+
+<div id="content">
+
+<include if="{{ isset(@page['content']) }}" href="{{ @page['content'] }}" />
+
+</div>
+
+</div><!-- container -->
+
+<footer class="footer" role="contentinfo"> 
+<div class="container"> 
+
+<ul class="footer-links">
+<li><a href="{{ @home_url }}"><i class="icon-home"></i> Home</a></li> 
+<li><a href="{{ @home_url }}/terms">Terms</a></li> 
+<li><a href="{{ @home_url }}/privacy">Privacy</a></li> 
+<li><a href="{{ @home_url }}/help">Help</a></li> </ul>
+
+<p>© 2016 {{ @site_title }}</p> 
+</div><!-- container -->
+</footer>
+
+</body>
+</html>
