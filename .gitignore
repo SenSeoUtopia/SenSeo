@@ -2,7 +2,6 @@
 Thumbs.db
 ehthumbs.db
 /vendor
-/public
 /public/uploads
 /app/tmp
 /.idea
